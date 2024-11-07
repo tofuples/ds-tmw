@@ -13,7 +13,7 @@ df.dtypes
 df["Points_dobble"] = df["Points"] * 2
 
 # %%
-df[["Points", "Points_dobble"]].astype(float)
+df[["Points", "Points_dobble"]].astype(float) #converteu int para float 
 
 # %%
 df[["UUID", "Name"]].astype(int)

@@ -8,6 +8,9 @@ df
 
 condicao = df["IdCustomer"]=="5f8fcbe0-6014-43f8-8b83-38cf2f4887b3"
 df_user = df[condicao]
+df_user
+
+# %%
 df_user['Points'].sum()
 
 # %%
@@ -21,7 +24,11 @@ pontos
 
 # %%
 df_summary = df.groupby(["IdCustomer"])["Points"].sum()
-df_summary.reset_index()
+df_summary.reset_index() #gera um novo dataframe com index
+
+# %%
+
+df.groupby(["IdCustomer"]).agg({"Points":'sum',"UUID":'count', "DtTransaction":'max'})
 
 # %%
 
@@ -49,7 +56,7 @@ now = datetime.datetime.now()
 (datetime.datetime.now() - df["DtTransaction"][0]).days
 
 # %%
-def recencia(x):
+def recencia(x): # x = todos as séries de DtTransaction
     diff = datetime.datetime.now() - x.max()
     return diff.days
 
@@ -57,7 +64,7 @@ def recencia(x):
 (df.groupby(["IdCustomer"])
    .agg({ "Points": 'sum',
           "UUID": "count",
-          "DtTransaction": ['max', recencia]
+          "DtTransaction": recencia 
           })
     .rename(columns={
             "Points":"Valor",
@@ -65,3 +72,4 @@ def recencia(x):
             "DtTransaction":"UltimaData"
             })
    .reset_index())
+# %%

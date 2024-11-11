@@ -12,6 +12,7 @@ df_user
 
 # %%
 df_user['Points'].sum()
+df_user
 
 # %%
 

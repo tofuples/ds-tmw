@@ -42,7 +42,7 @@ df_transacao.merge(df_user,
                    )
 # %%
 df_transacao.merge(df_user,
-                   how='right', #df_ser é a referencia
+                   how='right', #df_user é a referencia
                    left_on=['id_user'],
                    right_on=['id'],                   
                    )

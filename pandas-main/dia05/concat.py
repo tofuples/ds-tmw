@@ -23,8 +23,8 @@ df_02 = pd.DataFrame(data_02)
 df_02
 
 # %%
-
-pd.concat([df_01, df_02]).reset_index(drop=True)
+#passa uma lista de objetos no concat, os dois dataframes
+pd.concat([df_01, df_02]).reset_index(drop=True) #drop=true descarta o indice antigo 
 
 # %%
 
@@ -37,4 +37,5 @@ df_03 = pd.DataFrame(data_03).sort_values(['renda','sobrenome'], ascending=[Fals
 df_03
 # %%
 
-pd.concat([df_01, df_03], axis=1)
+pd.concat([df_01, df_03], axis=1) #junta pelo index correspondente
+# %%

@@ -28,12 +28,12 @@ df_customers_transactions.merge(df_transactions_products,
 # %%
 
 #fazendo os dois merges ao mesmo tempo:
-df_join = (df_transactions.merge(df_customer,
+df_join = (df_transactions.merge(df_customers_transactions,
                                 how="inner",
                                 left_on="IdCustomer",
                                 right_on="UUID",
                                 suffixes=["_transacao", "_cliente"])
-                          .merge(df_transactions_product,
+                          .merge(df_transactions_products,
                                  how='inner',
                                  left_on="UUID_transacao",
                                  right_on="IdTransaction")

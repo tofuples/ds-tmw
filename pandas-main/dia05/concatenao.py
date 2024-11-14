@@ -32,13 +32,28 @@ def import_etl(path:str):
     return df
 
 # %%
+df_022 = import_etl("../data/ipea/homicidios-de-homens-por-armas-de-fogo.csv")
+df_022
+
+# %%
 
 path = "../data/ipea/"
 files = os.listdir(path)
 
+print(files)
+
 dfs = []
 for i in files:
     dfs.append(import_etl(path+i))
+    
+#path+i: path de cada arquivo 
+
+# %%
+
+dfs[7]
+# %%
 
 df_bia = pd.concat(dfs, axis=1).reset_index()
 df_bia.to_csv("../data/bia_consolidado.csv", sep=";", index=False)
+df_bia
+# %%

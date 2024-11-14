@@ -1,20 +1,20 @@
 # %%
 import pandas as pd
 import numpy as np
+from dateutil.relativedelta import relativedelta
 
-df = pd.read_excel("../data/transacao_cartao.xlsx")
+df = pd.read_excel("../data/transactions2.xlsx")
 df
 
 # %%
 
-df['dtTransaction'] = pd.to_datetime(df['dtTransaction'],
-                                     format='%d/%m/%Y')
+df['dtTransaction'] = pd.to_datetime(df['dtTransaction'])
 
 df
 # %%
 
 def fatia_parcelas(row):
-    return [row["Valor"]/ row["Parcelas"] for i in range(row["Parcelas"])]
+    return [row["Valor"]/ row["Parcelas"] for i in range(row["Parcelas"])] #retornar a divisão valor/parcelas na respectiva quantidade de parcelas 
 
 df['ValorParcela'] = df.apply(fatia_parcelas, axis=1)
 
@@ -42,7 +42,7 @@ df_fatura
 # %%
 
 def add_months(row):
-    new_date = row["dtTransaction"] + np.timedelta64(row['Months_add'], 'M')
+    new_date = row["dtTransaction"] + relativedelta(months=row['Months_add'])
     dt_str = new_date.strftime("%Y-%m")
     return dt_str
 
@@ -61,6 +61,11 @@ df_fatura_mes = (df_fatura_mes.pivot_table(columns="DtFatura",
                               .fillna(0)
                               .reset_index()
                               )
-
+df_fatura_mes
 # %%
 df_fatura_mes.to_excel("Fatura_detalhada.xlsx")
+
+# %% 
+
+print(np.__version__)
+# %%

@@ -23,41 +23,26 @@ def get_content(url):
 
     response = requests.get(url, headers=headers)
     return response
-# %%
-url = "https://www.residentevildatabase.com/personagens/ada-wong/"    
+
+
+def get_basic_info(soup): 
+    div_page = soup.find("div", class_="td-page-content") #busca a div 
+    paragrafo = div_page.find_all("p")[1] #busca o parágrafo
+    ems = paragrafo.find_all("em")
+    data = {}
+    for i in ems:
+        chave, valor = i.text.split(":") #cada parto do split é     atribuido chave e valor
+        chave = chave.strip(" ")    
+        data[chave] = valor.strip(" ")  
     
+    return data
+
+# %%
+url = "https://www.residentevildatabase.com/personagens/ada-wong/"     
 response = get_content(url)
-    
-response.status_code
-# %%
-response.text
-# %%
 
-soup = BeautifulSoup(response.text)
-soup
-# %%
-div_page = soup.find("div", class_="td-page-content") #busca a div 
-div_page
-# %%
-paragrafo = div_page.find_all("p")[1] #busca o parágrafo
-paragrafo
-# %%
-ems = paragrafo.find_all("em")
-ems
-# %%
-
-ems[0].text
-# %%
-data = {}
-for i in ems:
-    chave, valor = i.text.split(":") #cada parto do split é atribuido chave e valor
-    chave = chave.strip(" ")
-    data[chave] = valor.strip(" ")
-    
-data
-# %%
-print(data.keys())
-# %%
-data["Altura"]
-# %%
- 
+if response.status_code != 200:
+    print("Não foi possível coletar os dados!")
+else:
+    soup = BeautifulSoup(response.text)
+    get_basic_info(soup)

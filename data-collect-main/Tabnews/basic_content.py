@@ -32,7 +32,7 @@ while True:
         data = resp.json()
         save_data(data)
         
-        date = pd.to_datetime(data[-1]["updated_at"])      
+        date = pd.to_datetime(data[-1]["updated_at"]).date()     
         if len(data) < 100 or date < date_stop:
             break
         
